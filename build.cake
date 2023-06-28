@@ -165,7 +165,8 @@ Task("DockerBuild")
                     new ProcessSettings()
                         .WithArguments(x => x
                             .Append("minver")
-                            .AppendSwitch("--default-pre-release-phase", preReleasePhase)
+                            .AppendSwitch("--default-pre-release-identifiers", preReleasePhase)
+                            .AppendSwitch("--build-metadata", string.Empty)
                             )
                         .SetRedirectStandardOutput(true),
                         out var versionLines);
