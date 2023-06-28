@@ -19,7 +19,7 @@ internal static class ConfigurationBuilderExtensions
         string[] args) =>
         configurationBuilder
             // Add configuration from the appsettings.json file.
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+            // .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
             // Add configuration from an optional appsettings.development.json, appsettings.staging.json or
             // appsettings.production.json file, depending on the environment. These settings override the ones in
             // the appsettings.json file.

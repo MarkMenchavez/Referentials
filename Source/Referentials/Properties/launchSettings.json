@@ -13,37 +13,34 @@
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "publishAllPorts": true,
       "environmentVariables": {
         "Kestrel__Endpoints__Http__Url": "http://*"
-      }
+      },
+      "publishAllPorts": true
     },
     "Kestrel": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": true
     },
     "Kestrel Production": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
-      }
+      },
+      "dotnetRunMessages": true
     },
-    // dotnet watch run must be run without the Visual Studio debugger using CTRL+F5.
     "Watch Kestrel (CTRL+F5)": {
       "commandName": "Executable",
       "executablePath": "dotnet",
-      "workingDirectory": "$(ProjectDir)",
       "commandLineArgs": "watch",
+      "workingDirectory": "$(ProjectDir)",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -51,8 +48,8 @@
     "Watch Kestrel Production (CTRL+F5)": {
       "commandName": "Executable",
       "executablePath": "dotnet",
-      "workingDirectory": "$(ProjectDir)",
       "commandLineArgs": "watch",
+      "workingDirectory": "$(ProjectDir)",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
       }
@@ -60,7 +57,6 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -68,7 +64,6 @@
     "IIS Express Production": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
       }
