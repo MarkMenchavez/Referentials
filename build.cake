@@ -165,7 +165,9 @@ Task("DockerBuild")
                     new ProcessSettings()
                         .WithArguments(x => x
                             .Append("minver")
-                            .AppendSwitch("--default-pre-release-phase", preReleasePhase))
+                            // This does not seem to work for building the docker image tag
+                            // .AppendSwitch("--default-pre-release-phase", preReleasePhase)
+                            )
                         .SetRedirectStandardOutput(true),
                         out var versionLines);
                 if (exitCode != 0)
