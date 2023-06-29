@@ -166,7 +166,7 @@ Task("DockerBuild")
                         .WithArguments(x => x
                             .Append("minver")
                             .AppendSwitch("--default-pre-release-identifiers", preReleasePhase)
-                            .AppendSwitch("--verbosity", "debug")
+                            .AppendSwitch("--verbosity", "trace")
                             )
                         .SetRedirectStandardOutput(true),
                         out var versionLines);
@@ -175,7 +175,7 @@ Task("DockerBuild")
                     throw new Exception($"dotnet minver failed with non zero exit code {exitCode}.");
                 }
 
-                return versionLines.LastOrDefault();
+                return versionLines.LastOrDefault().Split('+')[0];
             }
 
             string GetGitCommitSha()
