@@ -166,7 +166,7 @@ Task("DockerBuild")
                         .WithArguments(x => x
                             .Append("minver")
                             .AppendSwitch("--default-pre-release-identifiers", preReleasePhase)
-                            .AppendSwitch("--build-metadata", string.Empty)
+                            .AppendSwitch("--verbosity", "debug")
                             )
                         .SetRedirectStandardOutput(true),
                         out var versionLines);
