@@ -58,11 +58,11 @@ jobs:
     env:
       DOCKER_IMAGE_NAME: referentials
       DOCKER_REGISTRY: ghcr.io
-      DOCKER_USERNAME: username
+      DOCKER_USERNAME: MarkMenchavez
       DOCKER_PASSWORD: ${{secrets.GITHUB_TOKEN}}
     environment:
       name: "GitHub Container Registry"
-      url: https://github.com/Username/Project/pkgs/container/referentials
+      url: https://github.com/MarkMenchavez/Project/pkgs/container/referentials
     permissions:
       packages: write
     runs-on: ${{matrix.os}}
