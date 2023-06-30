@@ -6,7 +6,7 @@
     <!-- Used to store connection strings and other sensitive settings, so you don't have to check them into your source
          control provider. Only use this in Development, it is not intended for Production use.
          See http://docs.asp.net/en/latest/security/app-secrets.html -->
-    <UserSecretsId>Referentials-b4bc79f9-238a-4759-b5ee-a7d3bac68b02</UserSecretsId>
+    <UserSecretsId>Referentials-4745f82e-b6c4-4a34-b061-e9c396a72023</UserSecretsId>
     <!-- Disable publishing of a web.config file for IIS when calling dotnet publish. -->
     <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
   </PropertyGroup>
@@ -17,11 +17,11 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Authors>Project Author</Authors>
-    <Company>Project Author</Company>
-    <Product>Project Title</Product>
-    <Description>Project Description</Description>
-    <Copyright>Copyright © Project Author. All rights Reserved</Copyright>
+    <Authors>Mark Menchavez</Authors>
+    <Company>Mark Menchavez</Company>
+    <Product>Referentials</Product>
+    <Description>Referentials Service</Description>
+    <Copyright>Copyright © Mark Menchavez. All rights Reserved</Copyright>
   </PropertyGroup>
 
   <!-- https://github.com/Dotnet-Boxed/Templates/issues/2029
@@ -35,15 +35,32 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel Production' " />
   <ItemGroup Label="Package References">
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="6.0.4" />
     <PackageReference Include="Boxed.AspNetCore" Version="8.1.2" />
     <PackageReference Include="Boxed.AspNetCore.Swagger" Version="10.0.0" />
     <PackageReference Include="Boxed.Mapping" Version="6.0.0" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+    <PackageReference Include="Microsoft.AspNetCore.ApplicationInsights.HostingStartup" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.AzureAppServicesIntegration" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.3.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.6" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.6" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.7" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+    <PackageReference Include="Serilog.Enrichers.Span" Version="2.3.0" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
   </ItemGroup>
 
 </Project>

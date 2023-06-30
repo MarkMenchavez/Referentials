@@ -1,11 +1,11 @@
 namespace Referentials.ConfigureOptions;
 
-using Referentials.Constants;
-using Referentials.Options;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
+using Referentials.Constants;
+using Referentials.Options;
 
 /// <summary>
 /// Configures the static files middleware to add the Cache-Control and Pragma HTTP headers. The cache duration is

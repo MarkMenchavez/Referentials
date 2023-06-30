@@ -39,6 +39,11 @@ internal static class ConfigurationBuilderExtensions
             // override the ones in all of the above config files. See
             // http://docs.asp.net/en/latest/security/app-secrets.html
             .AddEnvironmentVariables()
+            // Push telemetry data through the Azure Application Insights pipeline faster in the development and
+            // staging environments, allowing you to view results immediately.
+            .AddApplicationInsightsSettings(
+                connectionString: string.Empty, // TODO Read from configuration
+                developerMode: !hostEnvironment.IsProduction())
             // Add command line options. These take the highest priority.
             .AddIf(
                 args is not null,

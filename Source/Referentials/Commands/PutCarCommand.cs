@@ -1,12 +1,12 @@
 namespace Referentials.Commands;
 
-using Referentials.Repositories;
-using Referentials.ViewModels;
 using Boxed.Mapping;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Referentials.Repositories;
+using Referentials.ViewModels;
 
 public class PutCarCommand
 {

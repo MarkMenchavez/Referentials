@@ -1,15 +1,28 @@
 namespace Referentials.IntegrationTest;
 
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Moq;
 using Referentials.Options;
 using Referentials.Repositories;
 using Referentials.Services;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Moq;
+using Serilog;
+using Serilog.Events;
+using Xunit.Abstractions;
 
 public class CustomWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TEntryPoint>
     where TEntryPoint : class
 {
-    public CustomWebApplicationFactory() => this.ClientOptions.AllowAutoRedirect = false;
+    public CustomWebApplicationFactory(ITestOutputHelper testOutputHelper)
+    {
+        this.ClientOptions.AllowAutoRedirect = false;
+        this.ClientOptions.BaseAddress = new Uri("https://localhost");
+
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Debug(formatProvider: CultureInfo.InvariantCulture)
+            .WriteTo.TestOutput(testOutputHelper, LogEventLevel.Verbose, formatProvider: CultureInfo.InvariantCulture)
+            .CreateLogger();
+    }
 
     public ApplicationOptions ApplicationOptions { get; private set; } = default!;
 
@@ -37,6 +50,7 @@ public class CustomWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TE
 
     protected virtual void ConfigureServices(IServiceCollection services) =>
         services
+            .AddDistributedMemoryCache()
             .AddSingleton(this.CarRepositoryMock.Object)
             .AddSingleton(this.ClockServiceMock.Object);
 

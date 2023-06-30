@@ -1,12 +1,12 @@
 namespace Referentials;
 
-using Referentials.OperationFilters;
 using Boxed.AspNetCore.Swagger;
 using Boxed.AspNetCore.Swagger.OperationFilters;
 using Boxed.AspNetCore.Swagger.SchemaFilters;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Referentials.OperationFilters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>

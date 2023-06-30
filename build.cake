@@ -95,7 +95,7 @@ Task("DockerBuild")
             tag = tag ?? dockerfile.GetDirectory().GetDirectoryName().ToLower();
             var version = GetVersion();
             var gitCommitSha = GetGitCommitSha();
-    
+
             // Docker buildx allows you to build Docker images for multiple platforms (including x64, x86 and ARM64) and
             // push them at the same time. To enable buildx, you may need to enable experimental support with these commands:
             // docker buildx create --name builder --driver docker-container --use
@@ -158,16 +158,14 @@ Task("DockerBuild")
             {
                 var directoryBuildPropsFilePath = GetFiles("Directory.Build.props").Single().ToString();
                 var directoryBuildPropsDocument = System.Xml.Linq.XDocument.Load(directoryBuildPropsFilePath);
-                var preReleasePhase = directoryBuildPropsDocument.Descendants("MinVerDefaultPreReleaseIdentifiers").Single().Value;
+                var preReleasePhase = directoryBuildPropsDocument.Descendants("MinVerDefaultPreReleasePhase").Single().Value;
 
                 var exitCode = StartProcess(
                     "dotnet",
                     new ProcessSettings()
                         .WithArguments(x => x
                             .Append("minver")
-                            .AppendSwitch("--default-pre-release-identifiers", preReleasePhase)
-                            .AppendSwitch("--verbosity", "trace")
-                            )
+                            .AppendSwitch("--default-pre-release-phase", preReleasePhase))
                         .SetRedirectStandardOutput(true),
                         out var versionLines);
                 if (exitCode != 0)
@@ -175,6 +173,7 @@ Task("DockerBuild")
                     throw new Exception($"dotnet minver failed with non zero exit code {exitCode}.");
                 }
 
+                // Exlude the build metaData which has a '+' prefix, an invalid docker tag. 
                 return versionLines.LastOrDefault().Split('+')[0];
             }
 

@@ -1,7 +1,7 @@
 namespace Referentials.Commands;
 
-using Referentials.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Referentials.Repositories;
 
 public class DeleteCarCommand
 {

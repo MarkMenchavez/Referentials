@@ -4,20 +4,22 @@ using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
-using Referentials.ViewModels;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
+using Referentials.ViewModels;
 using Xunit;
+using Xunit.Abstractions;
 
 public class CarsControllerTest : CustomWebApplicationFactory<Program>
 {
     private readonly HttpClient client;
     private readonly MediaTypeFormatterCollection formatters;
 
-    public CarsControllerTest()
+    public CarsControllerTest(ITestOutputHelper testOutputHelper)
+        : base(testOutputHelper)
     {
         this.client = this.CreateClient();
         this.formatters = new MediaTypeFormatterCollection();
@@ -107,7 +109,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(4, carViewModel.Cylinders);
         Assert.Equal("Honda", carViewModel.Make);
         Assert.Equal("Civic", carViewModel.Model);
-        Assert.Equal(new Uri("http://localhost/cars/1"), carViewModel.Url);
+        Assert.Equal(new Uri("https://localhost/cars/1"), carViewModel.Url);
     }
 
     [Fact]
@@ -185,7 +187,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(ContentType.RestfulJson, response.Content.Headers.ContentType?.MediaType);
         await this.AssertPageUrlsAsync(
                 response,
-                nextPageUrl: $"http://localhost/cars?First=3&After={Cursor.ToCursor(new DateTimeOffset(2000, 1, 3, 0, 0, 0, TimeSpan.Zero))}",
+                nextPageUrl: $"https://localhost/cars?First=3&After={Cursor.ToCursor(new DateTimeOffset(2000, 1, 3, 0, 0, 0, TimeSpan.Zero))}",
                 previousPageUrl: null,
                 expectedPageCount: 3,
                 actualPageCount: 3,
@@ -216,7 +218,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         await this.AssertPageUrlsAsync(
                 response,
                 nextPageUrl: null,
-                previousPageUrl: $"http://localhost/cars?Last=3&Before={Cursor.ToCursor(new DateTimeOffset(2000, 1, 4, 0, 0, 0, TimeSpan.Zero))}",
+                previousPageUrl: $"https://localhost/cars?Last=3&Before={Cursor.ToCursor(new DateTimeOffset(2000, 1, 4, 0, 0, 0, TimeSpan.Zero))}",
                 expectedPageCount: 3,
                 actualPageCount: 1,
                 totalCount: 4)
@@ -246,7 +248,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         await this.AssertPageUrlsAsync(
                 response,
                 nextPageUrl: null,
-                previousPageUrl: $"http://localhost/cars?Last=3&Before={Cursor.ToCursor(new DateTimeOffset(2000, 1, 2, 0, 0, 0, TimeSpan.Zero))}",
+                previousPageUrl: $"https://localhost/cars?Last=3&Before={Cursor.ToCursor(new DateTimeOffset(2000, 1, 2, 0, 0, 0, TimeSpan.Zero))}",
                 expectedPageCount: 3,
                 actualPageCount: 3,
                 totalCount: 4)
@@ -275,7 +277,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(ContentType.RestfulJson, response.Content.Headers.ContentType?.MediaType);
         await this.AssertPageUrlsAsync(
                 response,
-                nextPageUrl: $"http://localhost/cars?First=3&After={Cursor.ToCursor(new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero))}",
+                nextPageUrl: $"https://localhost/cars?First=3&After={Cursor.ToCursor(new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero))}",
                 previousPageUrl: null,
                 expectedPageCount: 3,
                 actualPageCount: 1,
@@ -305,8 +307,8 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(ContentType.RestfulJson, response.Content.Headers.ContentType?.MediaType);
         await this.AssertPageUrlsAsync(
                 response,
-                nextPageUrl: $"http://localhost/cars?First=2&After={Cursor.ToCursor(new DateTimeOffset(2000, 1, 3, 0, 0, 0, TimeSpan.Zero))}",
-                previousPageUrl: $"http://localhost/cars?Last=2&Before={Cursor.ToCursor(new DateTimeOffset(2000, 1, 2, 0, 0, 0, TimeSpan.Zero))}",
+                nextPageUrl: $"https://localhost/cars?First=2&After={Cursor.ToCursor(new DateTimeOffset(2000, 1, 3, 0, 0, 0, TimeSpan.Zero))}",
+                previousPageUrl: $"https://localhost/cars?Last=2&Before={Cursor.ToCursor(new DateTimeOffset(2000, 1, 2, 0, 0, 0, TimeSpan.Zero))}",
                 expectedPageCount: 2,
                 actualPageCount: 2,
                 totalCount: 4)
@@ -353,13 +355,13 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         Assert.Equal(ContentType.RestfulJson, response.Content.Headers.ContentType?.MediaType);
-        Assert.Equal(new Uri("http://localhost/cars/1"), response.Headers.Location);
+        Assert.Equal(new Uri("https://localhost/cars/1"), response.Headers.Location);
         var carViewModel = await response.Content.ReadAsAsync<Car>(this.formatters).ConfigureAwait(false);
         Assert.Equal(1, carViewModel.CarId);
         Assert.Equal(4, carViewModel.Cylinders);
         Assert.Equal("Honda", carViewModel.Make);
         Assert.Equal("Civic", carViewModel.Model);
-        Assert.Equal(new Uri("http://localhost/cars/1"), carViewModel.Url);
+        Assert.Equal(new Uri("https://localhost/cars/1"), carViewModel.Url);
     }
 
     [Fact]
@@ -445,7 +447,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(4, carViewModel.Cylinders);
         Assert.Equal("Honda", carViewModel.Make);
         Assert.Equal("Civic", carViewModel.Model);
-        Assert.Equal(new Uri("http://localhost/cars/1"), carViewModel.Url);
+        Assert.Equal(new Uri("https://localhost/cars/1"), carViewModel.Url);
     }
 
     [Fact]
@@ -551,7 +553,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(4, carViewModel.Cylinders);
         Assert.Equal("Honda", carViewModel.Make);
         Assert.Equal("Civic Type-R", carViewModel.Model);
-        Assert.Equal(new Uri("http://localhost/cars/1"), carViewModel.Url);
+        Assert.Equal(new Uri("https://localhost/cars/1"), carViewModel.Url);
     }
 
     private static List<Models.Car> GetCars() =>
@@ -598,8 +600,8 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
             Assert.Equal(new Uri(previousPageUrl), connection.PageInfo.PreviousPageUrl);
         }
 
-        var firstPageUrl = $"http://localhost/cars?First={expectedPageCount}";
-        var lastPageUrl = $"http://localhost/cars?Last={expectedPageCount}";
+        var firstPageUrl = $"https://localhost/cars?First={expectedPageCount}";
+        var lastPageUrl = $"https://localhost/cars?Last={expectedPageCount}";
 
         Assert.Equal(new Uri(firstPageUrl), connection.PageInfo.FirstPageUrl);
         Assert.Equal(new Uri(lastPageUrl), connection.PageInfo.LastPageUrl);

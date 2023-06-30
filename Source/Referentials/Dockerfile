@@ -7,12 +7,12 @@
 # (See https://docs.microsoft.com/en-us/visualstudio/containers/container-msbuild-properties)
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS base
 # Open Container Initiative (OCI) labels (See https://github.com/opencontainers/image-spec/blob/master/annotations.md).
-LABEL org.opencontainers.image.title="Project Title" \
-    org.opencontainers.image.description="Project Description" \
-    org.opencontainers.image.documentation="https://github.com/Username/Project" \
-    org.opencontainers.image.source="https://github.com/Username/Project.git" \
-    org.opencontainers.image.url="https://github.com/Username/Project" \
-    org.opencontainers.image.vendor="Project Author"
+LABEL org.opencontainers.image.title="Referentials" \
+    org.opencontainers.image.description="Referentials Service" \
+    org.opencontainers.image.documentation="https://github.com/MarkMenchavez/Referentials" \
+    org.opencontainers.image.source="https://github.com/MarkMenchavez/Referentials.git" \
+    org.opencontainers.image.url="https://github.com/MarkMenchavez/Referentials" \
+    org.opencontainers.image.vendor="Mark Menchavez"
 # Disable the culture invariant mode which defaults to true in the base alpine image
 # (See https://github.com/dotnet/corefx/blob/8245ee1e8f6063ccc7a3a60cafe821d29e85b02f/Documentation/architecture/globalization-invariant-mode.md)
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
@@ -25,7 +25,7 @@ RUN apk add --no-cache \
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 WORKDIR /app
-EXPOSE 80
+EXPOSE 80 443
 
 # SDK image used to build and publish the application
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS sdk

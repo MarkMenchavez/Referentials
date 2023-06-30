@@ -1,7 +1,7 @@
 namespace Referentials.Validators;
 
-using Referentials.ViewModels;
 using FluentValidation;
+using Referentials.ViewModels;
 
 public class SaveCarValidator : AbstractValidator<SaveCar>
 {

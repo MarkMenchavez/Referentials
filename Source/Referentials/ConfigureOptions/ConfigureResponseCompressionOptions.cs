@@ -1,9 +1,9 @@
 namespace Referentials.ConfigureOptions;
 
 using System.IO.Compression;
-using Referentials.Options;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Options;
+using Referentials.Options;
 
 /// <summary>
 /// Configures dynamic GZIP and Brotli response compression. This is turned off for HTTPS requests by default to avoid

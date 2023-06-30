@@ -1,15 +1,21 @@
 namespace Referentials;
 
+using System.Globalization;
+using Microsoft.ApplicationInsights.Extensibility;
 using Referentials.Options;
+using Serilog;
+using Serilog.Extensions.Hosting;
 
 public class Program
 {
     public static async Task<int> Main(string[] args)
     {
+        Log.Logger = CreateBootstrapLogger();
         IHost? host = null;
 
         try
         {
+            Log.Information("Initialising.");
             host = CreateHostBuilder(args).Build();
 
             host.LogApplicationStarted();
@@ -26,6 +32,10 @@ public class Program
 
             return 1;
         }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -39,6 +49,7 @@ public class Program
                     hostingContext.HostingEnvironment.ApplicationName = AssemblyInformation.Current.Product;
                     configurationBuilder.AddCustomConfiguration(hostingContext.HostingEnvironment, args);
                 })
+            .UseSerilog(ConfigureReloadableLogger)
             .UseDefaultServiceProvider(
                 (context, options) =>
                 {
@@ -59,7 +70,42 @@ public class Program
                         builderContext.Configuration.GetRequiredSection(nameof(ApplicationOptions.Kestrel)),
                         reloadOnChange: false);
                 })
+            .UseAzureAppServices()
             // Used for IIS and IIS Express for in-process hosting. Use UseIISIntegration for out-of-process hosting.
             .UseIIS()
             .UseStartup<Startup>();
+
+    /// <summary>
+    /// Creates a logger used during application initialisation.
+    /// <see href="https://nblumhardt.com/2020/10/bootstrap-logger/"/>.
+    /// </summary>
+    /// <returns>A logger that can load a new configuration.</returns>
+    private static ReloadableLogger CreateBootstrapLogger() =>
+        new LoggerConfiguration()
+            .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
+            .WriteTo.Debug(formatProvider: CultureInfo.InvariantCulture)
+            .CreateBootstrapLogger();
+
+    /// <summary>
+    /// Configures a logger used during the applications lifetime.
+    /// <see href="https://nblumhardt.com/2020/10/bootstrap-logger/"/>.
+    /// </summary>
+    private static void ConfigureReloadableLogger(
+        HostBuilderContext context,
+        IServiceProvider services,
+        LoggerConfiguration configuration) =>
+        configuration
+            .ReadFrom.Configuration(context.Configuration)
+            .ReadFrom.Services(services)
+            .Enrich.WithProperty("Application", context.HostingEnvironment.ApplicationName)
+            .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
+            .WriteTo.Conditional(
+                x => context.HostingEnvironment.IsProduction(),
+                x => x.ApplicationInsights(
+                    services.GetRequiredService<TelemetryConfiguration>(),
+                    TelemetryConverter.Traces))
+            .WriteTo.Conditional(
+                x => context.HostingEnvironment.IsDevelopment(),
+                x => x.Console(formatProvider: CultureInfo.InvariantCulture)
+                    .WriteTo.Debug(formatProvider: CultureInfo.InvariantCulture));
 }

@@ -1,11 +1,11 @@
 namespace Referentials.Commands;
 
 using System.Globalization;
-using Referentials.Repositories;
-using Referentials.ViewModels;
 using Boxed.Mapping;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Referentials.Repositories;
+using Referentials.ViewModels;
 
 public class GetCarCommand
 {

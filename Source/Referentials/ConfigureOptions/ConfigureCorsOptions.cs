@@ -1,8 +1,8 @@
 namespace Referentials.ConfigureOptions;
 
-using Referentials.Constants;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.Options;
+using Referentials.Constants;
 
 /// <summary>
 /// Configures cross-origin resource sharing (CORS) policies.

@@ -1,8 +1,8 @@
 namespace Referentials.Mappers;
 
+using Boxed.Mapping;
 using Referentials.Constants;
 using Referentials.ViewModels;
-using Boxed.Mapping;
 
 public class CarToCarMapper : IMapper<Models.Car, Car>
 {

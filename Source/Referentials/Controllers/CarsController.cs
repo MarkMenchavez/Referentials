@@ -1,12 +1,12 @@
 namespace Referentials.Controllers;
 
-using Referentials.Commands;
-using Referentials.Constants;
-using Referentials.ViewModels;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using Referentials.Commands;
+using Referentials.Constants;
+using Referentials.ViewModels;
 using Swashbuckle.AspNetCore.Annotations;
 
 [Route("[controller]")]
