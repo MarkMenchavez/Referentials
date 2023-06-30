@@ -1,14 +1,14 @@
 namespace Referentials.Commands;
 
-using Referentials.Constants;
-using Referentials.Repositories;
-using Referentials.ViewModels;
 using Boxed.AspNetCore;
 using Boxed.Mapping;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Referentials.Constants;
+using Referentials.Repositories;
+using Referentials.ViewModels;
 
 public class GetCarPageCommand
 {

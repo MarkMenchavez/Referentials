@@ -54,6 +54,30 @@
 
       <article>
         <h3><span aria-hidden="true" class="fa fa-lock"></span> Security</h3>
+        <h4>TLS over HTTPS</h4>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <input name="HTTPS-SetupTLS" type="checkbox"> <strong>Setup a TLS Certificate</strong> -
+            Obtain a TLS certificate and configure it in your <em>appsettings.json</em> file. See <a href="https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl">this</a> for more information.
+          </li>
+          <li class="list-group-item">
+            <input name="HTTPS-ConfigureHSTSPreload" type="checkbox"> <strong>Configure Strict Transport Security (HSTS) Preloading</strong> -
+            If using Strict-Transport-Security, submit your domain to the <a href="https://hstspreload.appspot.com/">HSTS Preload</a> site so that your domain can be preloaded using HTTPS rather than HTTP See <a href="https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security#Preloading_Strict_Transport_Security">this</a> for more information about preloading.
+          </li>
+          <li class="list-group-item">
+            <input name="HTTPS-TestHttps" type="checkbox"> <strong>Test Your HTTPS Implementation</strong> -
+            Use the <a href="https://www.ssllabs.com/ssltest">SSLLabs.com</a> site to check that you have implemented TLS over HTTPS correctly.
+          </li>
+          <li class="list-group-item">
+            <input name="HTTPS-CertificateTransparency" type="checkbox"> <strong>Certificate Transparency</strong> -
+            <a href="https://scotthelme.co.uk/revocation-is-broken/">Certificate Transparency (CT)</a> requires that all Certificate Authorities (CA's) publically log all certificates they create. If a certificate is mistakenly issued for your site you can be notified by the following services:
+            <ul>
+              <li><a href="https://developers.facebook.com/tools/ct/">Facebook Certificate Transparency Monitoring</a></li>
+              <li><a href="https://sslmate.com/certspotter/">sslmate CertSpotter</a></li>
+              <li><a href="https://crt.sh/?q=example.com">crt.sh</a></li>
+            </ul>
+          </li>
+        </ul>
         <h4>Understand Web Security</h4>
         <ul class="list-group">
           <li class="list-group-item">
@@ -82,6 +106,10 @@
           <li class="list-group-item">
             <input name="OtherSecurity-KeepNuGetUpToDate" type="checkbox"> <strong>Keep NuGet Packages Up To Date</strong> -
             Keep your NuGet packages up to date to patch security vulnerabilities. See the section about updating below.
+          </li>
+          <li class="list-group-item">
+            <input name="OtherSecurity-AzureSQLThreatDetection" type="checkbox"> <strong>Turn on Azure SQL Database Threat Detection</strong> -
+            If you are using SQL Database on Azure, then turn on <a href="https://azure.microsoft.com/en-us/documentation/articles/sql-database-threat-detection-get-started/">Threat Detection</a>.
           </li>
         </ul>
       </article>
@@ -132,6 +160,15 @@
         </ul>
       </article>
 
+      <article>
+        <h3><span aria-hidden="true" class="fa fa-exclamation-triangle"></span> Resilience and Error Handling</h3>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <input name="ResilienceAndErrorHandling-ApplicationInsights" type="checkbox"> <strong>Application Insights</strong> -
+            Application Insights helps monitor your site and know about it when it goes down. Login to <a href="http://azure.microsoft.com">Azure</a>, create a new Application Insights instance, retrieve the Instrumentation Key and add it to your <em>appsettings.json</em> file. For more information see the <a href="http://docs.asp.net/en/latest/fundamentals/application-insights.html">Getting Started</a> guide.
+          </li>
+        </ul>
+      </article>
 
       <article>
         <h3><span aria-hidden="true" class="fa fa-users"></span> Thank Developers</h3>

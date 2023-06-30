@@ -1,11 +1,11 @@
 namespace Referentials.ConfigureOptions;
 
-using Referentials.Options;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
+using Referentials.Options;
 
 public class ConfigureMvcOptions : IConfigureOptions<MvcOptions>
 {

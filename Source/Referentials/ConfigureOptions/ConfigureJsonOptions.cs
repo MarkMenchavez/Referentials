@@ -2,10 +2,10 @@ namespace Referentials.ConfigureOptions;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Referentials.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Referentials.ViewModels;
 
 public class ConfigureJsonOptions : IConfigureOptions<JsonOptions>
 {

@@ -6,7 +6,7 @@ namespace Referentials;
 internal static partial class LoggerExtensions
 {
     [LoggerMessage(
-        EventId = 5000,
+        EventId = 5500,
         Level = LogLevel.Information,
         Message = "Started {Application} in {Environment} mode with runtime {Runtime} and OS {OperatingSystem}.")]
     public static partial void ApplicationStarted(
@@ -17,7 +17,7 @@ internal static partial class LoggerExtensions
         string operatingSystem);
 
     [LoggerMessage(
-        EventId = 5001,
+        EventId = 5501,
         Level = LogLevel.Information,
         Message = "Stopped {Application} in {Environment} mode with runtime {Runtime} and OS {OperatingSystem}.")]
     public static partial void ApplicationStopped(

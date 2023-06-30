@@ -1,8 +1,8 @@
 namespace Referentials.Mappers;
 
+using Boxed.Mapping;
 using Referentials.Services;
 using Referentials.ViewModels;
-using Boxed.Mapping;
 
 public class CarToSaveCarMapper : IMapper<Models.Car, SaveCar>, IMapper<SaveCar, Models.Car>
 {

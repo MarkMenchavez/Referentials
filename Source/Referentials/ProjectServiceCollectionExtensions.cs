@@ -1,11 +1,11 @@
 namespace Referentials;
 
+using Boxed.Mapping;
 using Referentials.Commands;
 using Referentials.Mappers;
 using Referentials.Repositories;
 using Referentials.Services;
 using Referentials.ViewModels;
-using Boxed.Mapping;
 
 /// <summary>
 /// <see cref="IServiceCollection"/> extension methods add project services.

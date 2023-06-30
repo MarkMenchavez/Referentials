@@ -1,10 +1,11 @@
 namespace Referentials;
 
-using Referentials.Constants;
 using Boxed.AspNetCore;
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Referentials.Constants;
+using Serilog;
 
 /// <summary>
 /// The main start-up class for the application.
@@ -35,11 +36,16 @@ public class Startup
     /// <param name="services">The services.</param>
     public virtual void ConfigureServices(IServiceCollection services) =>
         services
+            // Add Azure Application Insights data collection services to the services container.
+            .AddApplicationInsightsTelemetry(this.configuration)
+            .AddStackExchangeRedisCache(options => { })
             .AddCors()
             .AddResponseCompression()
             .AddRouting()
             .AddResponseCaching()
-            .AddCustomHealthChecks()
+            .AddHsts(options => { })
+            .AddCustomHealthChecks(this.webHostEnvironment, this.configuration)
+            .AddOpenTelemetryTracing(builder => builder.AddCustomTracing(this.webHostEnvironment))
             .AddSwaggerGen()
             .AddHttpContextAccessor()
             // Add useful interface for accessing the ActionContext outside a controller.
@@ -73,9 +79,13 @@ public class Startup
             .UseResponseCaching()
             .UseResponseCompression()
             .UseIf(
+                !this.webHostEnvironment.IsDevelopment(),
+                x => x.UseHsts())
+            .UseIf(
                 this.webHostEnvironment.IsDevelopment(),
                 x => x.UseDeveloperExceptionPage())
             .UseStaticFiles()
+            .UseSerilogRequestLogging()
             .UseRequestCanceled()
             .UseEndpoints(
                 builder =>

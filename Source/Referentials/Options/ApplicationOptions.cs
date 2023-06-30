@@ -24,4 +24,7 @@ public class ApplicationOptions
 
     [Required]
     public KestrelServerOptions Kestrel { get; set; } = default!;
+
+    [Required]
+    public RedisOptions Redis { get; set; } = default!;
 }

@@ -1,10 +1,11 @@
 namespace Referentials;
 
-using Referentials.ConfigureOptions;
-using Referentials.Options;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Options;
+using Referentials.ConfigureOptions;
+using Referentials.Constants;
+using Referentials.Options;
 
 /// <summary>
 /// <see cref="IServiceCollection"/> extension methods which extend ASP.NET Core services.
@@ -34,6 +35,7 @@ internal static class CustomServiceCollectionExtensions
                     options.KnownProxies.Clear();
                 })
             .ConfigureAndValidateSingleton<HostOptions>(configuration.GetRequiredSection(nameof(ApplicationOptions.Host)))
+            .ConfigureAndValidateSingleton<RedisOptions>(configuration.GetRequiredSection(nameof(ApplicationOptions.Redis)))
             .ConfigureAndValidateSingleton<KestrelServerOptions>(configuration.GetRequiredSection(nameof(ApplicationOptions.Kestrel)));
 
     public static IServiceCollection AddCustomConfigureOptions(this IServiceCollection services) =>
@@ -41,16 +43,25 @@ internal static class CustomServiceCollectionExtensions
             .ConfigureOptions<ConfigureApiVersioningOptions>()
             .ConfigureOptions<ConfigureMvcOptions>()
             .ConfigureOptions<ConfigureCorsOptions>()
+            .ConfigureOptions<ConfigureHstsOptions>()
             .ConfigureOptions<ConfigureJsonOptions>()
+            .ConfigureOptions<ConfigureRedisCacheOptions>()
+            .ConfigureOptions<ConfigureRequestLoggingOptions>()
             .ConfigureOptions<ConfigureResponseCompressionOptions>()
             .ConfigureOptions<ConfigureRouteOptions>()
             .ConfigureOptions<ConfigureSwaggerGenOptions>()
             .ConfigureOptions<ConfigureSwaggerUIOptions>()
             .ConfigureOptions<ConfigureStaticFileOptions>();
 
-    public static IServiceCollection AddCustomHealthChecks(this IServiceCollection services) =>
+    public static IServiceCollection AddCustomHealthChecks(
+        this IServiceCollection services,
+        IWebHostEnvironment webHostEnvironment,
+        IConfiguration configuration) =>
         services
             .AddHealthChecks()
             // Add health checks for external dependencies here. See https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+            .AddIf(
+                !webHostEnvironment.IsEnvironment(EnvironmentName.Test),
+                x => x.AddRedis(configuration.GetRequiredSection(nameof(ApplicationOptions.Redis)).Get<RedisOptions>().ConfigurationOptions.ToString()))
             .Services;
 }

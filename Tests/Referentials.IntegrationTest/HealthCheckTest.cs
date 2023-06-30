@@ -2,12 +2,14 @@ namespace Referentials.IntegrationTest.Controllers;
 
 using System.Net;
 using Xunit;
+using Xunit.Abstractions;
 
 public class HealthCheckTest : CustomWebApplicationFactory<Program>
 {
     private readonly HttpClient client;
 
-    public HealthCheckTest() =>
+    public HealthCheckTest(ITestOutputHelper testOutputHelper)
+        : base(testOutputHelper) =>
         this.client = this.CreateClient();
 
     [Fact]
