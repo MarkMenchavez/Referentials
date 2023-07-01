@@ -28,7 +28,7 @@ WORKDIR /app
 EXPOSE 80 443
 
 # SDK image used to build and publish the application
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS sdk
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS sdk
 # To use the debug build configuration pass --build-arg Configuration=Debug
 ARG Configuration=Release
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true \
