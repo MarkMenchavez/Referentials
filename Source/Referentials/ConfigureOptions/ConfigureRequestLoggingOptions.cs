@@ -53,7 +53,7 @@ public class ConfigureRequestLoggingOptions : IConfigureOptions<RequestLoggingOp
         diagnosticContext.Set(ContentTypePropertyName, response.ContentType);
     }
 
-    private static LogEventLevel GetLevel(HttpContext httpContext, double elapsedMilliseconds, Exception exception)
+    private static LogEventLevel GetLevel(HttpContext httpContext, double elapsedMilliseconds, Exception? exception)
     {
         if (exception is null && httpContext.Response.StatusCode <= 499)
         {
