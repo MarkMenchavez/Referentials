@@ -158,14 +158,14 @@ Task("DockerBuild")
             {
                 var directoryBuildPropsFilePath = GetFiles("Directory.Build.props").Single().ToString();
                 var directoryBuildPropsDocument = System.Xml.Linq.XDocument.Load(directoryBuildPropsFilePath);
-                var preReleasePhase = directoryBuildPropsDocument.Descendants("MinVerDefaultPreReleasePhase").Single().Value;
+                var preReleasePhase = directoryBuildPropsDocument.Descendants("MinVerDefaultPreReleaseIdentifiers").Single().Value;
 
                 var exitCode = StartProcess(
                     "dotnet",
                     new ProcessSettings()
                         .WithArguments(x => x
                             .Append("minver")
-                            .AppendSwitch("--default-pre-release-phase", preReleasePhase))
+                            .AppendSwitch("--default-pre-release-identifiers", preReleasePhase))
                         .SetRedirectStandardOutput(true),
                         out var versionLines);
                 if (exitCode != 0)
