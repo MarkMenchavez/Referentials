@@ -1,6 +1,7 @@
 namespace Referentials.IntegrationTest;
 
 using System.Globalization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 using Referentials.Options;
@@ -43,10 +44,14 @@ public class CustomWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TE
         base.ConfigureClient(client);
     }
 
-    protected override void ConfigureWebHost(IWebHostBuilder builder) =>
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder
             .ConfigureServices(this.ConfigureServices)
             .UseEnvironment(Constants.EnvironmentName.Test);
+    }
 
     protected virtual void ConfigureServices(IServiceCollection services) =>
         services

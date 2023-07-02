@@ -1,14 +1,15 @@
 namespace Referentials;
 
+using System;
 using System.Globalization;
 using Microsoft.ApplicationInsights.Extensibility;
 using Referentials.Options;
 using Serilog;
 using Serilog.Extensions.Hosting;
 
-public class Program
+public sealed class Program
 {
-    protected Program()
+    private Program()
     {
     }
 
@@ -90,10 +91,10 @@ public class Program
             .WriteTo.Debug(formatProvider: CultureInfo.InvariantCulture)
             .CreateBootstrapLogger();
 
-    /// <summary>
-    /// Configures a logger used during the applications lifetime.
-    /// <see href="https://nblumhardt.com/2020/10/bootstrap-logger/"/>.
-    /// </summary>
+    /*
+     * Configures a logger used during the applications lifetime.
+     * https://nblumhardt.com/2020/10/bootstrap-logger/
+     */
     private static void ConfigureReloadableLogger(
         HostBuilderContext context,
         IServiceProvider services,

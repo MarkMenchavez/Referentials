@@ -18,6 +18,8 @@ public class ConfigureHstsOptions : IConfigureOptions<HstsOptions>
 
     public void Configure(HstsOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         // Preload the HSTS HTTP header for better security. See https://hstspreload.org/
         options.IncludeSubDomains = true;
         options.MaxAge = OneYear;

@@ -14,6 +14,10 @@ public class ConfigureRedisCacheOptions : IConfigureOptions<RedisCacheOptions>
     public ConfigureRedisCacheOptions(RedisOptions redisOptions) =>
         this.redisOptions = redisOptions;
 
-    public void Configure(RedisCacheOptions options) =>
+    public void Configure(RedisCacheOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
         options.ConfigurationOptions = this.redisOptions.ConfigurationOptions;
+    }
 }

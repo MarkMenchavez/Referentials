@@ -10,8 +10,11 @@ public static class TracerProviderBuilderExtensions
 {
     public static TracerProviderBuilder AddCustomTracing(
         this TracerProviderBuilder builder,
-        IWebHostEnvironment webHostEnvironment) =>
-        builder
+        IWebHostEnvironment webHostEnvironment)
+    {
+        ArgumentNullException.ThrowIfNull(webHostEnvironment);
+
+        return builder
             .SetResourceBuilder(GetResourceBuilder(webHostEnvironment))
             .AddAspNetCoreInstrumentation(
                 options =>
@@ -21,6 +24,7 @@ public static class TracerProviderBuilderExtensions
                 })
             .AddConsoleExporter(
                 options => options.Targets = ConsoleExporterOutputTargets.Console | ConsoleExporterOutputTargets.Debug);
+    }
 
     public static TracerProviderBuilder AddIf(
         this TracerProviderBuilder builder,

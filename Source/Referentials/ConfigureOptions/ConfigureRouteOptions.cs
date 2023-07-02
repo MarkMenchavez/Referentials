@@ -7,5 +7,10 @@ using Microsoft.Extensions.Options;
 /// </summary>
 public class ConfigureRouteOptions : IConfigureOptions<RouteOptions>
 {
-    public void Configure(RouteOptions options) => options.LowercaseUrls = true;
+    public void Configure(RouteOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
+        options.LowercaseUrls = true;
+    }
 }

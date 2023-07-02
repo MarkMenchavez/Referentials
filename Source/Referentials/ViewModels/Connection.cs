@@ -22,5 +22,7 @@ public class Connection<T>
     /// <summary>
     /// Gets the items.
     /// </summary>
+#pragma warning disable CA1002 // Do not expose generic lists
     public List<T> Items { get; }
+#pragma warning restore CA1002 // Do not expose generic lists
 }
