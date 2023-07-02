@@ -16,6 +16,8 @@ public class ConfigureMvcOptions : IConfigureOptions<MvcOptions>
 
     public void Configure(MvcOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         // Controls how controller actions cache content from the appsettings.json file.
         if (this.cacheProfileOptions is not null)
         {

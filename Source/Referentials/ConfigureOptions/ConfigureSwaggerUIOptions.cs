@@ -13,6 +13,8 @@ public class ConfigureSwaggerUIOptions : IConfigureOptions<SwaggerUIOptions>
 
     public void Configure(SwaggerUIOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         // Set the Swagger UI browser document title.
         options.DocumentTitle = AssemblyInformation.Current.Product;
         // Set the Swagger UI to render at '/'.

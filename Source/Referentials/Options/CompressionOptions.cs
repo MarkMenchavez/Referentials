@@ -13,5 +13,5 @@ public class CompressionOptions
     /// Gets a list of MIME types to be compressed in addition to the default set used by ASP.NET Core.
     /// </summary>
     [Required]
-    public List<string> MimeTypes { get; }
+    public IList<string> MimeTypes { get; }
 }

@@ -22,8 +22,12 @@ public class ConfigureStaticFileOptions : IConfigureOptions<StaticFileOptions>
             .Select(x => x.Value)
             .SingleOrDefault();
 
-    public void Configure(StaticFileOptions options) =>
+    public void Configure(StaticFileOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
         options.OnPrepareResponse = this.OnPrepareResponse;
+    }
 
     /// <summary>
     /// Adds the Cache-Control and Pragma HTTP headers. The cache duration is controlled from configuration.

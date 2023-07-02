@@ -21,6 +21,8 @@ public class ConfigureResponseCompressionOptions :
 
     public void Configure(ResponseCompressionOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         // Add additional MIME types (other than the built in defaults) to enable GZIP compression for.
         var customMimeTypes = this.compressionOptions?.MimeTypes ?? Enumerable.Empty<string>();
         options.MimeTypes = customMimeTypes.Concat(ResponseCompressionDefaults.MimeTypes);
@@ -29,7 +31,17 @@ public class ConfigureResponseCompressionOptions :
         options.Providers.Add<GzipCompressionProvider>();
     }
 
-    public void Configure(BrotliCompressionProviderOptions options) => options.Level = CompressionLevel.Optimal;
+    public void Configure(BrotliCompressionProviderOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
 
-    public void Configure(GzipCompressionProviderOptions options) => options.Level = CompressionLevel.Optimal;
+        options.Level = CompressionLevel.Optimal;
+    }
+
+    public void Configure(GzipCompressionProviderOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
+        options.Level = CompressionLevel.Optimal;
+    }
 }

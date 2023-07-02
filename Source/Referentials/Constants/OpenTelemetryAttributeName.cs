@@ -1,5 +1,7 @@
 namespace Referentials.Constants;
 
+#pragma warning disable CA1034 // Do not nest types
+#pragma warning disable CA1724 // The type name conflicts in whole or in part with the namespace name
 /// <summary>
 /// Constants for semantic attribute names outlined by the OpenTelemetry specifications.
 /// <see href="https://github.com/open-telemetry/opentelemetry-specification/blob/master/specification/trace/semantic_conventions/README.md"/>.

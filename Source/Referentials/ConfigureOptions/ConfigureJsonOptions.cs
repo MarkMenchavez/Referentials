@@ -16,6 +16,8 @@ public class ConfigureJsonOptions : IConfigureOptions<JsonOptions>
 
     public void Configure(JsonOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         var jsonSerializerOptions = options.JsonSerializerOptions;
         jsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         jsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;

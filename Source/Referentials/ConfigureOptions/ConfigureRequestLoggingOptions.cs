@@ -24,6 +24,8 @@ public class ConfigureRequestLoggingOptions : IConfigureOptions<RequestLoggingOp
 
     public void Configure(RequestLoggingOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         options.EnrichDiagnosticContext = EnrichDiagnosticContext;
         options.GetLevel = GetLevel;
         options.MessageTemplate = MessageTemplate;
