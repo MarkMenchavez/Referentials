@@ -180,6 +180,9 @@ csharp_style_namespace_declarations = file_scoped:warning
 dotnet_code_quality_unused_parameters = all:warning
 dotnet_remove_unnecessary_suppression_exclusions = none:warning
 
+# Mark Assemblies as CLSCompliant(true)
+dotnet_diagnostic.CA1014.severity = none
+
 # C# Unnecessary code rules
 [*.{cs,csx,cake}]
 csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
