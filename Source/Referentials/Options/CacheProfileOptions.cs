@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 /// The caching options for the application.
 /// </summary>
 [Serializable]
-#pragma warning disable CA1710 // Identifiers should have correct suffix
 public class CacheProfileOptions : Dictionary<string, CacheProfile>
-#pragma warning restore CA1710 // Identifiers should have correct suffix
 {
     public CacheProfileOptions()
         : base()
