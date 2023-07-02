@@ -42,7 +42,7 @@ internal static class ConfigurationBuilderExtensions
             // Push telemetry data through the Azure Application Insights pipeline faster in the development and
             // staging environments, allowing you to view results immediately.
             .AddApplicationInsightsSettings(
-                connectionString: string.Empty, // TODO Read from configuration
+                connectionString: null,
                 developerMode: !hostEnvironment.IsProduction())
             // Add command line options. These take the highest priority.
             .AddIf(

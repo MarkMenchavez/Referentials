@@ -8,6 +8,10 @@ using Serilog.Extensions.Hosting;
 
 public class Program
 {
+    protected Program()
+    {
+    }
+
     public static async Task<int> Main(string[] args)
     {
         Log.Logger = CreateBootstrapLogger();
