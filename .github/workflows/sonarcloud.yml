@@ -56,8 +56,7 @@ jobs:
       - name: Install Required Tools
         run: |
           dotnet new tool-manifest
-          dotnet tool dotnet-sonarscanner
-          dotnet tool install dotnet-reportgenerator-globaltool
+          dotnet tool install dotnet-sonarscanner
           dotnet tool install dotnet-coverage
       
       - name: Analyze with Sonar Scanner
