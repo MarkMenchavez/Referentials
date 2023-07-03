@@ -45,11 +45,28 @@ jobs:
     steps:
       - name: Checkout Project
 
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # Shallow clones should be disabled for a better relevancy of analysis
           fetch-depth: 0
           
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3.0.3
+      
+      - name: Install Required Tools
+        run: |
+          dotnet new tool-manifest
+          dotnet tool dotnet-sonarscanner
+          dotnet tool install dotnet-reportgenerator-globaltool
+          dotnet tool install dotnet-coverage
+      
+      - name: Analyze with Sonar Scanner
+        run: |
+          dotnet sonarscanner begin /k:MarkMenchavez_Referentials /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet build --no-incremental
+          dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
+          dotnet sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
+      
       - name: Analyze with SonarCloud
 
         # You can pin the exact commit or the version.
