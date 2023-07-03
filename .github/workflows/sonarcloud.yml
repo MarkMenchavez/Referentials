@@ -58,13 +58,13 @@ jobs:
           dotnet new tool-manifest
           dotnet tool install dotnet-sonarscanner
           dotnet tool install dotnet-coverage
-      
+  
       - name: Analyze with Sonar Scanner
         run: |
-          dotnet sonarscanner begin /k:MarkMenchavez_Referentials /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet sonarscanner begin /k:MarkMenchavez_Referentials /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.host.url="https://sonarcloud.io" /d:sonar.organization="markmenchavez"
           dotnet build --no-incremental
           dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
-          dotnet sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
+          dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
       
       - name: Analyze with SonarCloud
 
