@@ -1,5 +1,6 @@
 namespace Referentials.OperationFilters;
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -12,6 +13,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 /// Once they are fixed and published, this class can be removed. See:
 /// - https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/412
 /// - https://github.com/domaindrivendev/Swashbuckle.AspNetCore/pull/413</remarks>
+[ExcludeFromCodeCoverage]
 public class ApiVersionOperationFilter : IOperationFilter
 {
     /// <inheritdoc/>

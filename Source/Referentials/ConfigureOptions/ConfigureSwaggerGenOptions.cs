@@ -1,5 +1,6 @@
-namespace Referentials;
+namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Boxed.AspNetCore.Swagger;
 using Boxed.AspNetCore.Swagger.OperationFilters;
 using Boxed.AspNetCore.Swagger.SchemaFilters;
@@ -9,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Referentials.OperationFilters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
+[ExcludeFromCodeCoverage]
 public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
 {
     private readonly IApiVersionDescriptionProvider provider;
@@ -22,7 +24,7 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
         options.EnableAnnotations();
 
         // Add the XML comment file for this assembly, so its contents can be displayed.
-        options.IncludeXmlCommentsIfExists(typeof(Startup).Assembly);
+        _ = options.IncludeXmlCommentsIfExists(typeof(Startup).Assembly);
 
         options.OperationFilter<ApiVersionOperationFilter>();
         options.OperationFilter<ClaimsOperationFilter>();

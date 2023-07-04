@@ -1,5 +1,6 @@
 namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
 using Referentials.Options;
 
+[ExcludeFromCodeCoverage]
 public class ConfigureMvcOptions : IConfigureOptions<MvcOptions>
 {
     private readonly CacheProfileOptions cacheProfileOptions;

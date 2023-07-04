@@ -1,5 +1,6 @@
 namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Options;
 
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Options;
 /// Note: You can refer to the following article to clear the HSTS cache in your browser
 /// http://classically.me/blogs/how-clear-hsts-settings-major-browsers.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ConfigureHstsOptions : IConfigureOptions<HstsOptions>
 {
     private static readonly TimeSpan OneYear = TimeSpan.FromDays(365);
