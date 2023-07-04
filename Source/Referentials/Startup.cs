@@ -45,7 +45,10 @@ public class Startup
             .AddResponseCaching()
             .AddHsts(options => { })
             .AddCustomHealthChecks(this.webHostEnvironment, this.configuration)
-            .AddOpenTelemetryTracing(builder => builder.AddCustomTracing(this.webHostEnvironment))
+            .AddOpenTelemetry()
+                .WithTracing(x => x.AddCustomTracing(this.webHostEnvironment))
+                .WithMetrics()
+            .Services
             .AddSwaggerGen()
             .AddHttpContextAccessor()
             // Add useful interface for accessing the ActionContext outside a controller.
