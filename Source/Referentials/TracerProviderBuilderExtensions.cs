@@ -1,6 +1,6 @@
 namespace Referentials;
 
-using System.Diagnostics;
+using System;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -19,7 +19,26 @@ public static class TracerProviderBuilderExtensions
             .AddAspNetCoreInstrumentation(
                 options =>
                 {
-                    options.Enrich = Enrich;
+                    options.EnrichWithHttpRequest = (activity, request) =>
+                    {
+                        activity.AddTag(OpenTelemetryAttributeName.Http.ClientIP, request.HttpContext.Connection.RemoteIpAddress);
+                        activity.AddTag(OpenTelemetryAttributeName.Http.RequestContentLength, request.ContentLength);
+                        activity.AddTag(OpenTelemetryAttributeName.Http.RequestContentType, request.ContentType);
+
+                        var user = request.HttpContext.User;
+                        if (user.Identity?.Name is not null)
+                        {
+                            activity.AddTag(OpenTelemetryAttributeName.EndUser.Id, user.Identity.Name);
+                            activity.AddTag(OpenTelemetryAttributeName.EndUser.Scope, string.Join(',', user.Claims.Select(x => x.Value)));
+                        }
+                    };
+
+                    options.EnrichWithHttpResponse = (activity, response) =>
+                    {
+                        activity.AddTag(OpenTelemetryAttributeName.Http.ResponseContentLength, response.ContentLength);
+                        activity.AddTag(OpenTelemetryAttributeName.Http.ResponseContentType, response.ContentType);
+                    };
+
                     options.RecordException = true;
                 })
             .AddConsoleExporter(
@@ -55,31 +74,4 @@ public static class TracerProviderBuilderExtensions
                     new(OpenTelemetryAttributeName.Host.Name, Environment.MachineName),
                 })
             .AddEnvironmentVariableDetector();
-
-    /// <summary>
-    /// Enrich spans with additional request and response meta data.
-    /// See https://github.com/open-telemetry/opentelemetry-specification/blob/master/specification/trace/semantic_conventions/http.md.
-    /// </summary>
-    private static void Enrich(Activity activity, string eventName, object obj)
-    {
-        if (obj is HttpRequest request)
-        {
-            var context = request.HttpContext;
-            activity.AddTag(OpenTelemetryAttributeName.Http.ClientIP, context.Connection.RemoteIpAddress);
-            activity.AddTag(OpenTelemetryAttributeName.Http.RequestContentLength, request.ContentLength);
-            activity.AddTag(OpenTelemetryAttributeName.Http.RequestContentType, request.ContentType);
-
-            var user = context.User;
-            if (user.Identity?.Name is not null)
-            {
-                activity.AddTag(OpenTelemetryAttributeName.EndUser.Id, user.Identity.Name);
-                activity.AddTag(OpenTelemetryAttributeName.EndUser.Scope, string.Join(',', user.Claims.Select(x => x.Value)));
-            }
-        }
-        else if (obj is HttpResponse response)
-        {
-            activity.AddTag(OpenTelemetryAttributeName.Http.ResponseContentLength, response.ContentLength);
-            activity.AddTag(OpenTelemetryAttributeName.Http.ResponseContentType, response.ContentType);
-        }
-    }
 }
