@@ -1,5 +1,6 @@
 namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -12,6 +13,7 @@ using Referentials.Options;
 /// controlled from configuration.
 /// See http://andrewlock.net/adding-cache-control-headers-to-static-files-in-asp-net-core/.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ConfigureStaticFileOptions : IConfigureOptions<StaticFileOptions>
 {
     private readonly CacheProfile? cacheProfile;

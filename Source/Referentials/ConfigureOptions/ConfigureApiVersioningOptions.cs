@@ -1,9 +1,11 @@
 namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Options;
 
+[ExcludeFromCodeCoverage]
 public class ConfigureApiVersioningOptions :
     IConfigureOptions<ApiVersioningOptions>,
     IConfigureOptions<ApiExplorerOptions>
