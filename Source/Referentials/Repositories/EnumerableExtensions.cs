@@ -1,5 +1,8 @@
 namespace Referentials.Repositories;
 
+using System.Diagnostics.CodeAnalysis;
+
+[ExcludeFromCodeCoverage]
 public static class EnumerableExtensions
 {
     public static IEnumerable<T> If<T>(

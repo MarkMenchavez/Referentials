@@ -1,7 +1,9 @@
 namespace Referentials.Repositories;
 
+using System.Diagnostics.CodeAnalysis;
 using Referentials.Models;
 
+[ExcludeFromCodeCoverage]
 public class CarRepository : ICarRepository
 {
     private static readonly List<Car> Cars = new()

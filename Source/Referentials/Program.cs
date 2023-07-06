@@ -1,12 +1,14 @@
 namespace Referentials;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.ApplicationInsights.Extensibility;
 using Referentials.Options;
 using Serilog;
 using Serilog.Extensions.Hosting;
 
+[ExcludeFromCodeCoverage]
 public sealed class Program
 {
     private Program()
