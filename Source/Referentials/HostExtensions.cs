@@ -1,7 +1,9 @@
 namespace Referentials;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
+[ExcludeFromCodeCoverage]
 internal static class HostExtensions
 {
     public static void LogApplicationStarted(this IHost host)

@@ -1,11 +1,13 @@
 namespace Referentials;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Referentials.Constants;
 
+[ExcludeFromCodeCoverage]
 public static class TracerProviderBuilderExtensions
 {
     public static TracerProviderBuilder AddCustomTracing(
