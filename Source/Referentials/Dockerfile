@@ -1,3 +1,4 @@
+
 # To build this Dockerfile, run the following command from the solution directory:
 # docker build --file "Source\Referentials\Dockerfile" --tag api .
 # Or you can use the experimental buildx command for a better experience:
@@ -40,7 +41,6 @@ COPY "Tests/Referentials.IntegrationTest/*.csproj" "Tests/Referentials.Integrati
 # Run the restore and cache the packages on the host for faster subsequent builds.
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
     dotnet restore
-# NOSONAR
 COPY . .
 # To view the files that have been copied into the container file system for debugging purposes uncomment this line
 # RUN apk add --no-cache tree && tree
@@ -53,5 +53,10 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
 # Runtime image used to run the application
 FROM base AS runtime
 WORKDIR /app
+
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+
+USER nonroot
 COPY --from=sdk /app .
 ENTRYPOINT ["dotnet", "Referentials.dll"]
