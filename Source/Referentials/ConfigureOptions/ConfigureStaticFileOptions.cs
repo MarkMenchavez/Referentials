@@ -1,5 +1,6 @@
 namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -12,6 +13,7 @@ using Referentials.Options;
 /// controlled from configuration.
 /// See http://andrewlock.net/adding-cache-control-headers-to-static-files-in-asp-net-core/.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ConfigureStaticFileOptions : IConfigureOptions<StaticFileOptions>
 {
     private readonly CacheProfile? cacheProfile;
@@ -22,8 +24,12 @@ public class ConfigureStaticFileOptions : IConfigureOptions<StaticFileOptions>
             .Select(x => x.Value)
             .SingleOrDefault();
 
-    public void Configure(StaticFileOptions options) =>
+    public void Configure(StaticFileOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
         options.OnPrepareResponse = this.OnPrepareResponse;
+    }
 
     /// <summary>
     /// Adds the Cache-Control and Pragma HTTP headers. The cache duration is controlled from configuration.

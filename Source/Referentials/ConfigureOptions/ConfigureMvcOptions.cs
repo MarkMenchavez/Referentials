@@ -1,5 +1,6 @@
 namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Boxed.AspNetCore;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
 using Referentials.Options;
 
+[ExcludeFromCodeCoverage]
 public class ConfigureMvcOptions : IConfigureOptions<MvcOptions>
 {
     private readonly CacheProfileOptions cacheProfileOptions;
@@ -16,6 +18,8 @@ public class ConfigureMvcOptions : IConfigureOptions<MvcOptions>
 
     public void Configure(MvcOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         // Controls how controller actions cache content from the appsettings.json file.
         if (this.cacheProfileOptions is not null)
         {

@@ -1,5 +1,7 @@
 namespace Referentials.ViewModels;
 
+using System.Globalization;
+
 /// <summary>
 /// Holds metadata about a page of items.
 /// </summary>
@@ -87,5 +89,5 @@ public class PageInfo
     }
 
     private static string GetLinkValueItem(string rel, Uri url) =>
-        FormattableString.Invariant($"<{url}>; rel=\"{rel}\"");
+        string.Create(CultureInfo.InvariantCulture, $"<{url}>; rel=\"{rel}\"");
 }
