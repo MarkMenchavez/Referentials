@@ -35,7 +35,7 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel Production' " />
   <ItemGroup Label="Package References">
-    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="6.0.4" />
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="7.0.0" />
     <PackageReference Include="Boxed.AspNetCore" Version="8.1.2" />
     <PackageReference Include="Boxed.AspNetCore.Swagger" Version="10.0.0" />
     <PackageReference Include="Boxed.Mapping" Version="6.0.0" />
