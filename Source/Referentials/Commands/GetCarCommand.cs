@@ -34,7 +34,7 @@ public class GetCarCommand
         var httpContext = this.actionContextAccessor.ActionContext!.HttpContext;
         var ifModifiedSince = httpContext.Request.Headers.IfModifiedSince;
         if (ifModifiedSince.Any() &&
-            DateTimeOffset.TryParse(ifModifiedSince, out var ifModifiedSinceDateTime) &&
+            DateTimeOffset.TryParse(ifModifiedSince, formatProvider: CultureInfo.InvariantCulture, styles: DateTimeStyles.None, out var ifModifiedSinceDateTime) &&
             (ifModifiedSinceDateTime >= car.Modified))
         {
             return new StatusCodeResult(StatusCodes.Status304NotModified);
