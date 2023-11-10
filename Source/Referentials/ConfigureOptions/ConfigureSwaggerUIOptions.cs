@@ -1,9 +1,11 @@
 namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
+[ExcludeFromCodeCoverage]
 public class ConfigureSwaggerUIOptions : IConfigureOptions<SwaggerUIOptions>
 {
     private readonly IApiVersionDescriptionProvider apiVersionDescriptionProvider;
@@ -13,6 +15,8 @@ public class ConfigureSwaggerUIOptions : IConfigureOptions<SwaggerUIOptions>
 
     public void Configure(SwaggerUIOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         // Set the Swagger UI browser document title.
         options.DocumentTitle = AssemblyInformation.Current.Product;
         // Set the Swagger UI to render at '/'.

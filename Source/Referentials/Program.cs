@@ -1,13 +1,20 @@
 namespace Referentials;
 
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.ApplicationInsights.Extensibility;
 using Referentials.Options;
 using Serilog;
 using Serilog.Extensions.Hosting;
 
-public class Program
+[ExcludeFromCodeCoverage]
+public sealed class Program
 {
+    private Program()
+    {
+    }
+
     public static async Task<int> Main(string[] args)
     {
         Log.Logger = CreateBootstrapLogger();
@@ -34,7 +41,7 @@ public class Program
         }
         finally
         {
-            Log.CloseAndFlush();
+            await Log.CloseAndFlushAsync().ConfigureAwait(false);
         }
     }
 
@@ -86,10 +93,10 @@ public class Program
             .WriteTo.Debug(formatProvider: CultureInfo.InvariantCulture)
             .CreateBootstrapLogger();
 
-    /// <summary>
-    /// Configures a logger used during the applications lifetime.
-    /// <see href="https://nblumhardt.com/2020/10/bootstrap-logger/"/>.
-    /// </summary>
+    /*
+     * Configures a logger used during the applications lifetime.
+     * https://nblumhardt.com/2020/10/bootstrap-logger/
+     */
     private static void ConfigureReloadableLogger(
         HostBuilderContext context,
         IServiceProvider services,

@@ -1,5 +1,6 @@
 namespace Referentials.ConfigureOptions;
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.AspNetCore;
@@ -9,6 +10,7 @@ using Serilog.Events;
 /// Configures serilog HTTP request logging. Adds additional properties to each log.
 /// See https://github.com/serilog/serilog-aspnetcore.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ConfigureRequestLoggingOptions : IConfigureOptions<RequestLoggingOptions>
 {
     private const string MessageTemplate = "{Protocol} {RequestMethod} {RequestPath} responded {StatusCode} {ContentType} in {Elapsed:0.0000} ms";
@@ -24,6 +26,8 @@ public class ConfigureRequestLoggingOptions : IConfigureOptions<RequestLoggingOp
 
     public void Configure(RequestLoggingOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
         options.EnrichDiagnosticContext = EnrichDiagnosticContext;
         options.GetLevel = GetLevel;
         options.MessageTemplate = MessageTemplate;
@@ -53,7 +57,7 @@ public class ConfigureRequestLoggingOptions : IConfigureOptions<RequestLoggingOp
         diagnosticContext.Set(ContentTypePropertyName, response.ContentType);
     }
 
-    private static LogEventLevel GetLevel(HttpContext httpContext, double elapsedMilliseconds, Exception exception)
+    private static LogEventLevel GetLevel(HttpContext httpContext, double elapsedMilliseconds, Exception? exception)
     {
         if (exception is null && httpContext.Response.StatusCode <= 499)
         {

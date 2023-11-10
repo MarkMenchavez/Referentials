@@ -1,7 +1,9 @@
 namespace Referentials.Repositories;
 
+using System.Diagnostics.CodeAnalysis;
 using Referentials.Models;
 
+[ExcludeFromCodeCoverage]
 public class CarRepository : ICarRepository
 {
     private static readonly List<Car> Cars = new()
@@ -83,7 +85,7 @@ public class CarRepository : ICarRepository
 
     public Task<Car?> GetAsync(int carId, CancellationToken cancellationToken)
     {
-        var car = Cars.FirstOrDefault(x => x.CarId == carId);
+        var car = Cars.Find(x => x.CarId == carId);
         return Task.FromResult(car);
     }
 

@@ -4,6 +4,7 @@ using Boxed.AspNetCore;
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using OpenTelemetry.Metrics;
 using Referentials.Constants;
 using Serilog;
 
@@ -45,7 +46,13 @@ public class Startup
             .AddResponseCaching()
             .AddHsts(options => { })
             .AddCustomHealthChecks(this.webHostEnvironment, this.configuration)
-            .AddOpenTelemetryTracing(builder => builder.AddCustomTracing(this.webHostEnvironment))
+            .AddOpenTelemetry()
+                .WithTracing(builder => builder
+                    .AddCustomTracing(this.webHostEnvironment))
+                .WithMetrics(builder => builder
+                    .AddAspNetCoreInstrumentation()
+                    .AddConsoleExporter())
+            .Services
             .AddSwaggerGen()
             .AddHttpContextAccessor()
             // Add useful interface for accessing the ActionContext outside a controller.

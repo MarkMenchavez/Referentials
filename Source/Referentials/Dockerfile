@@ -1,3 +1,4 @@
+
 # To build this Dockerfile, run the following command from the solution directory:
 # docker build --file "Source\Referentials\Dockerfile" --tag api .
 # Or you can use the experimental buildx command for a better experience:
@@ -5,7 +6,7 @@
 
 # Base image used by Visual Studio at development time
 # (See https://docs.microsoft.com/en-us/visualstudio/containers/container-msbuild-properties)
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS base
 # Open Container Initiative (OCI) labels (See https://github.com/opencontainers/image-spec/blob/master/annotations.md).
 LABEL org.opencontainers.image.title="Referentials" \
     org.opencontainers.image.description="Referentials Service" \
@@ -52,5 +53,10 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
 # Runtime image used to run the application
 FROM base AS runtime
 WORKDIR /app
+
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+
+USER nonroot
 COPY --from=sdk /app .
 ENTRYPOINT ["dotnet", "Referentials.dll"]
