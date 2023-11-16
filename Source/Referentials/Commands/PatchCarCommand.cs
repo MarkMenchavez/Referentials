@@ -48,7 +48,7 @@ public class PatchCarCommand
         var saveCar = this.carToSaveCarMapper.Map(car);
         var modelState = this.actionContextAccessor.ActionContext!.ModelState;
         patch.ApplyTo(saveCar, modelState);
-        var validationResult = this.saveCarValidator.Validate(saveCar);
+        var validationResult = await this.saveCarValidator.ValidateAsync(saveCar, cancellationToken).ConfigureAwait(false);
         if (!validationResult.IsValid)
         {
             validationResult.AddToModelState(modelState, null);

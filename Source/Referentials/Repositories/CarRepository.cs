@@ -75,10 +75,7 @@ public class CarRepository : ICarRepository
 
     public Task DeleteAsync(Car car, CancellationToken cancellationToken)
     {
-        if (Cars.Contains(car))
-        {
-            Cars.Remove(car);
-        }
+        Cars.Remove(car);
 
         return Task.CompletedTask;
     }

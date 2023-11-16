@@ -33,7 +33,7 @@ public class PostCarCommand
 
     public async Task<IActionResult> ExecuteAsync(SaveCar saveCar, CancellationToken cancellationToken)
     {
-        var validationResult = this.saveCarValidator.Validate(saveCar);
+        var validationResult = await this.saveCarValidator.ValidateAsync(saveCar, cancellationToken).ConfigureAwait(false);
         if (!validationResult.IsValid)
         {
             var modelState = this.actionContextAccessor.ActionContext!.ModelState;

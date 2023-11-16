@@ -38,7 +38,7 @@ public class GetCarPageCommand
     {
         ArgumentNullException.ThrowIfNull(pageOptions);
 
-        var validationResult = this.pageOptionsValidator.Validate(pageOptions);
+        var validationResult = await this.pageOptionsValidator.ValidateAsync(pageOptions, cancellationToken).ConfigureAwait(false);
         if (!validationResult.IsValid)
         {
             var modelState = this.actionContextAccessor.ActionContext!.ModelState;

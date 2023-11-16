@@ -371,6 +371,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(ContentType.ProblemJson, response.Content.Headers.ContentType?.MediaType);
         var problemDetails = await response.Content.ReadAsAsync<ValidationProblemDetails>(this.formatters).ConfigureAwait(false);
         Assert.Equal(StatusCodes.Status400BadRequest, problemDetails.Status);
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
         Assert.Equivalent(
             new Dictionary<string, string[]>()
             {
@@ -379,6 +380,7 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
                 [nameof(SaveCar.Model)] = new string[] { "'Model' must not be empty." },
             },
             problemDetails.Errors);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
     }
 
     [Fact]
@@ -395,12 +397,14 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(ContentType.ProblemJson, response.Content.Headers.ContentType?.MediaType);
         var problemDetails = await response.Content.ReadAsAsync<ValidationProblemDetails>(this.formatters).ConfigureAwait(false);
         Assert.Equal(StatusCodes.Status400BadRequest, problemDetails.Status);
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
         Assert.Equivalent(
             new Dictionary<string, string[]>()
             {
                 [string.Empty] = new string[] { "A non-empty request body is required." },
             },
             problemDetails.Errors);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
     }
 
     [Fact]
@@ -478,9 +482,15 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         var problemDetails = await response.Content.ReadAsAsync<ValidationProblemDetails>(this.formatters).ConfigureAwait(false);
         Assert.Equal(StatusCodes.Status400BadRequest, problemDetails.Status);
         Assert.Equal(3, problemDetails.Errors.Count);
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
         Assert.Equal(new string[] { "'Cylinders' must be between 1 and 20. You entered 0." }, problemDetails.Errors[nameof(SaveCar.Cylinders)]);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
         Assert.Equal(new string[] { "'Make' must not be empty." }, problemDetails.Errors[nameof(SaveCar.Make)]);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
         Assert.Equal(new string[] { "'Model' must not be empty." }, problemDetails.Errors[nameof(SaveCar.Model)]);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
     }
 
     [Fact]
@@ -521,12 +531,14 @@ public class CarsControllerTest : CustomWebApplicationFactory<Program>
         Assert.Equal(ContentType.ProblemJson, response.Content.Headers.ContentType?.MediaType);
         var problemDetails = await response.Content.ReadAsAsync<ValidationProblemDetails>(this.formatters).ConfigureAwait(false);
         Assert.Equal(StatusCodes.Status400BadRequest, problemDetails.Status);
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
         Assert.Equivalent(
             new Dictionary<string, string[]>()
             {
                 [nameof(SaveCar.Make)] = new string[] { "'Make' must not be empty." },
             },
             problemDetails.Errors);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
     }
 
     [Fact]

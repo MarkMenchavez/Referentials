@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 /// </summary>
 public class ApplicationOptions
 {
-    public ApplicationOptions() => this.CacheProfiles = new CacheProfileOptions();
+    public ApplicationOptions() => this.CacheProfiles = new();
 
     [Required]
     public CacheProfileOptions CacheProfiles { get; }
