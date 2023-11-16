@@ -20,7 +20,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" PrivateAssets="all" Version="17.7.30" />
     <PackageReference Include="MinVer" PrivateAssets="all" Version="4.3.0" />
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" Version="1.2.0-beta.507" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.6.0.74858">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.12.0.78982">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
